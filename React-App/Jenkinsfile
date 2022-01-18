@@ -17,31 +17,34 @@ pipeline{
                 }
             }
 
-            stage ('test') {
+            // stage ('test') {
+            //     steps {
+            //             dir("React-App"){
+            //             sh "npm run test App -- --watchAll=false --ci --reporters=default --reporters=jest-junit --coverage --coverageReporters=cobertura"
+            //         }
+            //     }
+            // }
+            // stage ('Publish test') {
+            //     steps {
+                    
+            //     }
+            // }
+
+            //-------Publicar Test en Sonar
+            stage ('test Sonar') {
                 steps {
-                        dir("React-App"){
-                        sh "npm run test App -- --watchAll=false --ci --reporters=default --reporters=jest-junit --coverage --coverageReporters=cobertura"
+                    dir("React-App"){
+                        sh "test App -- --watchAll=false --coverage  --testResultsProcessor jest-sonar-reporter"
                     }
                 }
             }
-            stage ('Publish test') {
-                inputs:
-                    testResultsFiles: '**/junit.xml'
+            stage ('sonar') {
+                steps {
+                    dir("React-App"){
+                        sh "npm run sonar"
+                    }
+                }
             }
-            // stage ('test Sonar') {
-            //     steps {
-            //         dir("React-App"){
-            //             sh "test App -- --watchAll=false --coverage  --testResultsProcessor jest-sonar-reporter"
-            //         }
-            //     }
-            // }
-            // stage ('sonar') {
-            //     steps {
-            //         dir("React-App"){
-            //             sh "npm run sonar"
-            //         }
-            //     }
-            // }
             
         
         }
