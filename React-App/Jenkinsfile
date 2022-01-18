@@ -1,12 +1,12 @@
 pieline{
     agent {label 'master'}
-    stages {
-        stage ('install') {
-            steps {
-                dir("React-App"{
-                    sh "npm install"
-                })
+        stages {
+            stage ('install') {
+                steps {
+                    dir("React-App"){
+                        sh "npm install"
+                    }
+                }
             }
         }
-    }
 }
