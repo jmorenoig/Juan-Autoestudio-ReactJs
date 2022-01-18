@@ -34,7 +34,7 @@ pipeline{
             stage ('test Sonar') {
                 steps {
                     dir("React-App"){
-                        sh "test App -- --watchAll=false --coverage  --testResultsProcessor jest-sonar-reporter"
+                        sh "npm run test App -- --watchAll=false --coverage  --testResultsProcessor jest-sonar-reporter"
                     }
                 }
             }
