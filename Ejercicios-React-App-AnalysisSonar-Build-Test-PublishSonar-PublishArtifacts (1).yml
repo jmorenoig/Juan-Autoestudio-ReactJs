@@ -46,7 +46,7 @@ jobs:
     inputs:
       cwd: React-App
       command: run
-      arguments: 'test App -- --watchAll=false --ci --reporters=default --reporters=jest-junit --coverageReporters=cobertura '
+      arguments: 'test App -- --watchAll=false --ci --reporters=default --reporters=jest-junit --coverage --coverageReporters=cobertura '
   - task: Npm@0
     displayName: npm test sonar
     enabled: False
