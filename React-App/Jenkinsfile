@@ -1,0 +1,26 @@
+pieline{
+    agent {label 'master'}
+    stages {
+        stage ('install') {
+            steps:
+                - task: Npm@1
+                    displayName: npm install
+                    inputs:
+                    workingDir: React-App
+                    verbose: false
+                - task: Npm@1
+                    displayName: npm run build
+                    inputs:
+                    command: custom
+                    workingDir: React-App
+                    verbose: false
+                    customCommand: run build
+                - task: Npm@0
+                    displayName: npm test  pipeline
+                    inputs:
+                    cwd: React-App
+                    command: run
+                    arguments: 'test App -- --watchAll=false --ci --reporters=default --reporters=jest-junit --coverage --coverageReporters=cobertura '
+        }
+    }
+}
