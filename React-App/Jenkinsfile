@@ -8,5 +8,23 @@ pieline{
                     }
                 }
             }
+        
+            stage ('build') {
+                steps {
+                    dir("React-App"){
+                        sh "npm run build"
+                    }
+                }
+            }
+
+            stage ('test') {
+                steps {
+                    dir("React-App"){
+                        sh "npm run test App -- --watchAll=false --ci --reporters=default --reporters=jest-junit --coverage --coverageReporters=cobertura"
+                    }
+                }
+            }
+
+        
         }
 }
