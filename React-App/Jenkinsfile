@@ -25,7 +25,8 @@ pipeline{
                 }
             }
             stage ('Publish test') {
-                junit '**/junit.xml'
+                inputs:
+                    testResultsFiles: '**/junit.xml'
             }
             // stage ('test Sonar') {
             //     steps {
