@@ -38,7 +38,7 @@ pipeline{
                     }
                 }
             }
-            stage ('sonar') {
+            stage ('run sonar') {
                 steps {
                     dir("React-App"){
                         sh "npm run sonar"
