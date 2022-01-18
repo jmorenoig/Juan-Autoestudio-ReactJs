@@ -19,12 +19,31 @@ pipeline{
 
             stage ('test') {
                 steps {
-                    dir("React-App"){
+                        dir("React-App"){
                         sh "npm run test App -- --watchAll=false --ci --reporters=default --reporters=jest-junit --coverage --coverageReporters=cobertura"
+                    }
+                    post { 
+                        always { 
+                        junit 'junit.xml'   
+                        }
                     }
                 }
             }
-
+            // stage ('test Sonar') {
+            //     steps {
+            //         dir("React-App"){
+            //             sh "test App -- --watchAll=false --coverage  --testResultsProcessor jest-sonar-reporter"
+            //         }
+            //     }
+            // }
+            // stage ('sonar') {
+            //     steps {
+            //         dir("React-App"){
+            //             sh "npm run sonar"
+            //         }
+            //     }
+            // }
+            
         
         }
 }

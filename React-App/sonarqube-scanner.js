@@ -6,8 +6,8 @@ sonarqubeScanner(
   //password:"Maestro1710.",
   token:"54c30b1fc69de51cab4f33b590de4200900c838d",
   options: {
-    "sonar.projectKey":"React-Juan-Docker",
-    "sonar.projectName":"React-Juan-Docker",
+    "sonar.projectKey":"React-Juan-Jenkins",
+    "sonar.projectName":"React-Juan-Jenkins",
     "sonar.projectVersion":"1.0",
     "sonar.sources":"src",
     "sonar.tests":"src",
