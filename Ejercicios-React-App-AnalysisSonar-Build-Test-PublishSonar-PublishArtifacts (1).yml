@@ -1,0 +1,99 @@
+trigger:
+  branches:
+    include:
+    - refs/heads/main
+name: $(date:yyyyMMdd)$(rev:.r)
+jobs:
+- job: Job_1
+  displayName: Agent job 1
+  pool:
+    name: juan_local_pool
+  steps:
+  - checkout: self
+  - task: Npm@1
+    displayName: npm install
+    inputs:
+      workingDir: React-App
+      verbose: false
+  - task: SonarQubePrepare@5
+    displayName: Prepare analysis on SonarQube
+    enabled: False
+    inputs:
+      SonarQube: b0c1b04d-1dd4-40c8-9d1c-b74186ab0ed7
+      scannerMode: CLI
+      configMode: manual
+      cliProjectKey: React-Juan
+      cliProjectName: React-Juan
+      extraProperties: >-
+        sonar.sources=React-App/src
+
+        sonar.tests=React-App/src
+
+        sonar.test.inclusions=React-App/src/**/*.test.js,src/**/*.test.jsx
+
+        sonar.typescript.lcov.reportPaths=React-App/coverage/lcov.info
+
+        sonar.testExecutionReportPaths=React-App/test-report.xml
+  - task: Npm@1
+    displayName: npm run build
+    inputs:
+      command: custom
+      workingDir: React-App
+      verbose: false
+      customCommand: run build
+  - task: Npm@0
+    displayName: npm test  pipeline
+    inputs:
+      cwd: React-App
+      command: run
+      arguments: 'test App -- --watchAll=false --ci --reporters=default --reporters=jest-junit --coverageReporters=cobertura '
+  - task: Npm@0
+    displayName: npm test sonar
+    enabled: False
+    inputs:
+      cwd: React-App
+      command: run
+      arguments: 'test App -- --watchAll=false --coverage  --testResultsProcessor jest-sonar-reporter '
+  - task: dependency-check-build-task@6
+    displayName: Dependency Check
+    enabled: False
+    inputs:
+      projectName: ReactJs-Juan
+      scanPath: React-App/build
+      format: ALL
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+    inputs:
+      SourceFolder: React-App/build
+      Contents: >-
+        **
+
+        React-App
+      TargetFolder: $(Build.ArtifactStagingDirectory)
+  - task: ArchiveFiles@1
+    displayName: Archive files
+    enabled: False
+    inputs:
+      rootFolder: $(Build.ArtifactStagingDirectory)
+      includeRootFolder: false
+  - task: SonarQubeAnalyze@5
+    displayName: Run Code Analysis
+    enabled: False
+  - task: PublishCodeCoverageResults@1
+    displayName: Publish code coverage from **/coverage/cobertura-coverage.xml
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: '**/coverage/cobertura-coverage.xml'
+      reportDirectory: $(System.DefaultWorkingDirectory)/React-App/coverage
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results '
+    inputs:
+      testResultsFiles: '**/junit.xml'
+  - task: SonarQubePublish@5
+    displayName: Publish Quality Gate Result
+    enabled: False
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish artifacts: drop'
+    inputs:
+      TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
+...
