@@ -22,12 +22,10 @@ pipeline{
                         dir("React-App"){
                         sh "npm run test App -- --watchAll=false --ci --reporters=default --reporters=jest-junit --coverage --coverageReporters=cobertura"
                     }
-                    post { 
-                        always { 
-                        junit 'junit.xml'   
-                        }
-                    }
                 }
+            }
+            stage ('Publish test') {
+                junit '**/junit.xml'
             }
             // stage ('test Sonar') {
             //     steps {
