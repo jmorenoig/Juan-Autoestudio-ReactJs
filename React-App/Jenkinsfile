@@ -30,22 +30,21 @@ pipeline{
             //     }
             // }
 
-            //-------Publicar Test en Sonar
-            stage ('test Sonar') {
+            // -------Publicar Test en Sonar
+            stage ('Test Sonar') {
                 steps {
                     dir("React-App"){
                         sh "npm run test App -- --watchAll=false --coverage  --testResultsProcessor jest-sonar-reporter"
                     }
                 }
             }
-            stage ('run sonar') {
-                steps {
-                    dir("React-App"){
-                        sh "npm run sonar"
-                    }
-                }
-            }
-            
+            // stage ('Sonar') {
+            //     steps {
+            //         dir("React-App"){
+            //             sh "npm run sonar"
+            //         }
+            //     }
+            // }
         
         }
 }
