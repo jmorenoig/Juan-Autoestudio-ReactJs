@@ -1,5 +1,7 @@
 pipeline{
-    agent any
+    agent {
+        Docker {image 'jmorenoig/agent_node:1'}
+    }
         stages {
             stage ('install') {
                 steps {
