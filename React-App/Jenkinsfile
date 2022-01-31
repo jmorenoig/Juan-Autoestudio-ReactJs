@@ -1,6 +1,6 @@
 pipeline{
     agent {
-        Docker {image 'jmorenoig/agent_node:1'}
+        docker {image 'jmorenoig/agent_node:1'}
     }
         stages {
             stage ('install') {
