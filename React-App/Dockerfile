@@ -29,7 +29,7 @@ RUN npm run test App -- --watchAll=false --coverage --testResultsProcessor jest-
 RUN java -version
 RUN sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /root/.sonar/native-sonar-scanner/sonar-scanner-4.5.0.2216-linux/bin/sonar-scanner
 # -------Publicar en sonar
-RUN npm run sonar 
+# RUN npm run sonar 
 
 
 FROM nginx:1.19.0-alpine AS prod-stage
