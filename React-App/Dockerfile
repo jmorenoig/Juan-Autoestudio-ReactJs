@@ -28,10 +28,8 @@ RUN npm run build
 RUN npm run test App -- --watchAll=false --coverage --testResultsProcessor jest-sonar-reporter
 RUN java -version
 RUN sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /root/.sonar/native-sonar-scanner/sonar-scanner-4.5.0.2216-linux/bin/sonar-scanner
-RUN npm run sonar 
-
-#WORKDIR /React-App/coverage
-#RUN npm publish code coverage from React-App/coverage/cobertura-coverage.xml
+# -------Publicar en sonar
+# RUN npm run sonar 
 
 
 FROM nginx:1.19.0-alpine AS prod-stage
