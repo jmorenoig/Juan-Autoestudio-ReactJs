@@ -1,6 +1,6 @@
 pipeline{
     agent {
-        docker {image 'jmorenoig/react-docker:1183'}
+        docker {image 'node:12-alpine3.12'}
     }
         stages {
             stage ('install') {
