@@ -1,6 +1,6 @@
 pipeline{
     agent {
-        docker {image 'node:12-alpine3.12'}
+        label 'Agent1-d78a943d'
     }
         stages {
             stage ('install') {
