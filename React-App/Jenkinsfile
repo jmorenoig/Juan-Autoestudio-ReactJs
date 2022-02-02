@@ -1,6 +1,9 @@
 pipeline{
     agent {
-        label 'Agent1-d78a943d'
+        // label 'Agent1-d78a943d'
+        docker {
+            image 'jmoreno/agent_node'
+        }
     }
         stages {
             stage ('install') {
