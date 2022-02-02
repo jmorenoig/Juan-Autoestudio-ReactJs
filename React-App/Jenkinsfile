@@ -2,7 +2,7 @@ pipeline{
     agent {
         // label 'Agent1-d78a943d'
         docker {
-            image 'jmoreno/agent_node'
+            image 'jmoreno/agent_node:1'
         }
     }
         stages {
