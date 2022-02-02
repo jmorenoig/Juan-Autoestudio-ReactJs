@@ -1,5 +1,7 @@
 FROM node:12-alpine3.12 as build
 
+RUN npm install npm@latest -g
+
 RUN  apk update \
   && apk upgrade \
   && apk add ca-certificates \
